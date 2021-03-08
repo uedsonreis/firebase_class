@@ -1,21 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import SignInPage from './src/pages/SignIn';
+import SignUpPage from './src/pages/SignUp';
+import UsersPage from './src/pages/Users';
+
+const Drawer = createDrawerNavigator();
+
+function LoginStack() {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator headerMode="screen">
+            <Stack.Screen name="Sign In" component={SignInPage} />
+            <Stack.Screen name="Sign Up" component={SignUpPage} />
+        </Stack.Navigator>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function MainStack() {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator headerMode="screen">
+            <Stack.Screen name="Users" component={UsersPage} />
+        </Stack.Navigator>
+    );
+}
+
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Drawer.Navigator initialRouteName="main">
+                <Drawer.Screen name="main" component={MainStack} />
+                <Drawer.Screen name="login" component={LoginStack} />
+            </Drawer.Navigator>
+        </NavigationContainer>
+    );
+}
