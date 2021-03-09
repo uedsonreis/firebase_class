@@ -1,4 +1,4 @@
-package reis.firebase.class;
+package reis.firebase;
 
 import android.os.Bundle;
 

@@ -9,9 +9,11 @@ export default function Users() {
 
     const navigation = useNavigation();
 
-    navigation.setOptions({
-        headerRight: () => <Button title="Sign Out" onPress={handleSignOut} />
-    });
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <Button title="Sign Out" onPress={handleSignOut} />
+        });
+    }, [navigation, handleSignOut]);
 
     const [users, setUsers] = React.useState([
         { email: 'uedson@any.com', password: '123' },
@@ -25,9 +27,10 @@ export default function Users() {
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
-            
+
             <FlatList
                 data={users}
+                keyExtractor={user => user.email}
                 renderItem={({ item }) => (
                     <View style={styles.row}>
                         <Text style={styles.text}>{item.email}</Text>

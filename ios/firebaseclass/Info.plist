@@ -55,7 +55,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>reis.firebase.class</string>
+          <string>reis.firebase</string>
         </array>
       </dict>
     </array>

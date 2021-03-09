@@ -18,14 +18,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "reis.firebase.class"
+      "bundleIdentifier": "reis.firebase"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "reis.firebase.class"
+      "package": "reis.firebase"
     },
     "web": {
       "favicon": "./assets/favicon.png"

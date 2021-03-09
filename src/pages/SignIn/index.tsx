@@ -10,9 +10,11 @@ export default function SignIn() {
 
     const navigation = useNavigation();
 
-    navigation.setOptions({
-        headerRight: () => <Button title="Sign Up" onPress={goSignUp} />
-    });
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <Button title="Sign Up" onPress={goSignUp} />
+        });
+    }, [navigation, goSignUp]);
 
     const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
