@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SignInPage from './src/pages/SignIn';
 import SignUpPage from './src/pages/SignUp';
-import UsersPage from './src/pages/Users';
+import CustomersPage from './src/pages/Customers';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,7 +25,7 @@ function MainStack() {
     const Stack = createStackNavigator();
     return (
         <Stack.Navigator headerMode="screen">
-            <Stack.Screen name="Users" component={UsersPage} />
+            <Stack.Screen name="Customers" component={CustomersPage} />
         </Stack.Navigator>
     );
 }

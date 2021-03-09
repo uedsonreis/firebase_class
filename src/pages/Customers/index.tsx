@@ -6,7 +6,7 @@ import auth from "@react-native-firebase/auth";
 
 import styles from './styles';
 
-export default function Users() {
+export default function Customers() {
 
     const navigation = useNavigation();
 
@@ -19,9 +19,9 @@ export default function Users() {
         });
     }, [navigation, handleSignOut, auth]);
 
-    const [users, setUsers] = React.useState([
-        { email: 'uedson@any.com', password: '123' },
-        { email: 'heitor@any.com', password: '456' },
+    const [customers, setCustomers] = React.useState([
+        { name: 'Maria', email: 'maria@any.com'  },
+        { name: 'Heitor', email: 'heitor@any.com' },
     ]);
 
     function handleSignOut() {
@@ -33,11 +33,11 @@ export default function Users() {
             <StatusBar style="auto" />
 
             <FlatList
-                data={users}
+                data={customers}
                 keyExtractor={user => user.email}
                 renderItem={({ item }) => (
                     <View style={styles.row}>
-                        <Text style={styles.text}>{item.email}</Text>
+                        <Text style={styles.text}>{item.name} - {item.email}</Text>
                     </View>
                 )}
             />
