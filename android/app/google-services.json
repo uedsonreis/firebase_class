@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "160634928956",
+    "project_id": "integration-class-a1349",
+    "storage_bucket": "integration-class-a1349.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160634928956:android:665a63f10f0c96ea92e839",
+        "android_client_info": {
+          "package_name": "reis.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160634928956-als0gfhe2vap8l0cvr5bd63io918hon1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrD3mZZA2xza_W8mkBZY7U634cOEe6oRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160634928956-als0gfhe2vap8l0cvr5bd63io918hon1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "160634928956-n2a1j0igppkpmlbgmfqakugpg127qobr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "aula.integration.firebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, Text, View } from 'react-native';
+import auth from "@react-native-firebase/auth";
 
 import styles from './styles';
 
@@ -10,10 +11,13 @@ export default function Users() {
     const navigation = useNavigation();
 
     React.useLayoutEffect(() => {
+        const logged = auth().currentUser;
+        if (!logged) handleSignOut();
+
         navigation.setOptions({
             headerRight: () => <Button title="Sign Out" onPress={handleSignOut} />
         });
-    }, [navigation, handleSignOut]);
+    }, [navigation, handleSignOut, auth]);
 
     const [users, setUsers] = React.useState([
         { email: 'uedson@any.com', password: '123' },

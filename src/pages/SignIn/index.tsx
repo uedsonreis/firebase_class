@@ -1,14 +1,17 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Text, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
 import styles from './styles';
-import { TextInput } from 'react-native-gesture-handler';
 
 export default function SignIn() {
 
     const navigation = useNavigation();
+
+    auth().signOut();
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -24,11 +27,12 @@ export default function SignIn() {
     }
 
     function handleLogin() {
-        if (email === 'uedson@any.com' && password === '123') {
+        auth().signInWithEmailAndPassword(email, password).then(userCredential => {
             navigation.navigate('main');
-        } else {
+        }).catch(error => {
             alert('Email/Password is invalid!');
-        }
+            console.log('Login invalid:', error);
+        });
     }
 
     function goSignUp() {

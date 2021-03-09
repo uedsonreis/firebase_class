@@ -4,6 +4,11 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+
+pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
 target 'firebaseclass' do
   use_unimodules!
   config = use_native_modules!
