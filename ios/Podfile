@@ -6,6 +6,7 @@ platform :ios, '11.0'
 
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
 
 pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
 
