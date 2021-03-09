@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import auth from "@react-native-firebase/auth";
 
 import styles from './styles';
 import { TextInput } from 'react-native-gesture-handler';
@@ -18,7 +19,7 @@ export default function SignUp() {
         setEmail(text.trim().toLowerCase());
     }
 
-    function handleSave() {
+    async function handleSave() {
         if (!email || !email.includes('@')) {
             alert("Email format is invalid!");
             return;
@@ -29,7 +30,12 @@ export default function SignUp() {
             return;
         }
 
-        navigation.goBack();
+        try {
+            await auth().createUserWithEmailAndPassword(email, password);
+            navigation.goBack();
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
     return (

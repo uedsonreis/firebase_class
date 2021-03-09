@@ -11,7 +11,7 @@ export default function SignIn() {
 
     const navigation = useNavigation();
 
-    auth().signOut();
+    if (auth().currentUser) auth().signOut();
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
