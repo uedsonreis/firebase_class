@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { TextInput } from 'react-native-gesture-handler';
 import auth from "@react-native-firebase/auth";
 
 import styles from './styles';
-import { TextInput } from 'react-native-gesture-handler';
 
 export default function SignUp() {
 

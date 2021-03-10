@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInPage from './src/pages/SignIn';
 import SignUpPage from './src/pages/SignUp';
 import CustomersPage from './src/pages/Customers';
+import NewEditPage from './src/pages/Customers/Edit';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +27,7 @@ function MainStack() {
     return (
         <Stack.Navigator headerMode="screen">
             <Stack.Screen name="Customers" component={CustomersPage} />
+            <Stack.Screen name="Edit Customer" component={NewEditPage} />
         </Stack.Navigator>
     );
 }

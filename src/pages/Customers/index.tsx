@@ -19,16 +19,21 @@ export default function Customers() {
         if (!logged) handleSignOut();
 
         navigation.setOptions({
-            headerRight: () => <Button title="Sign Out" onPress={handleSignOut} />
+            headerRight: () => <Button title="New" onPress={() => handleEditCustomer()} />,
+            headerLeft: () => <Button title="Exit" onPress={handleSignOut} />,
         });
     }, [navigation, handleSignOut, logged]);
 
     firestore().collection('customers').where('userId', '==', logged?.uid).get().then(response => {
-        setCustomers(response.docs.map(doc => doc.data() as any));
+        setCustomers(response.docs.map(doc => ({ ...doc.data(), id: doc.id } as Customer) ));
     });
 
     function handleSignOut() {
         navigation.navigate('login');
+    }
+
+    function handleEditCustomer(customer?: Customer) {
+        navigation.navigate('Edit Customer', { customer });
     }
 
     return (
@@ -40,7 +45,7 @@ export default function Customers() {
                 keyExtractor={item => item.email}
                 renderItem={({ item }) => (
                     <View style={styles.row}>
-                        <Text style={styles.text}>{item.name} - {item.email}</Text>
+                        <Text style={styles.text} onPress={() => handleEditCustomer(item)}>{item.name} - {item.email}</Text>
                     </View>
                 )}
             />
