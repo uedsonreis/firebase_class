@@ -1,22 +1,21 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Button, FlatList, Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import firestore from "@react-native-firebase/firestore";
-import auth from "@react-native-firebase/auth";
+
+import { authService, customerService } from '../../../services';
 
 import { Customer } from '../types';
 import styles from './styles';
 
-
 export default function EditCustomer() {
 
+    const logged = authService.getLoggedUser();
     const navigation = useNavigation();
     const route = useRoute();
 
     const { customer } = route.params as { customer: Customer };
 
-    const [logged, setLogged] = React.useState(auth().currentUser);
     const [name, setName] = React.useState<string>(customer ? customer.name : '');
     const [email, setEmail] = React.useState<string>(customer ? customer.email : '');
 
@@ -40,11 +39,9 @@ export default function EditCustomer() {
             return;
         }
 
-        if (customer) {
-            firestore().collection('customers').doc(customer.id).set({ ...customer, name, email });
-        } else {
-            await firestore().collection('customers').add({ name, email, userId: logged?.uid });
-        }
+        const customerToUpdate = customer ? { ...customer, name, email } : { name, email } as Customer;
+        await customerService.save(customerToUpdate);
+
         navigation.goBack();
     }
 

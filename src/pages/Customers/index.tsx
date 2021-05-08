@@ -2,8 +2,8 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { Button, FlatList, Text, View } from 'react-native';
-import firestore from "@react-native-firebase/firestore";
-import auth from "@react-native-firebase/auth";
+
+import { authService, customerService } from '../../services';
 
 import { Customer } from './types';
 import styles from './styles';
@@ -11,8 +11,9 @@ import styles from './styles';
 export default function Customers() {
 
     const navigation = useNavigation();
-
-    const [logged, setLogged] = React.useState(auth().currentUser);
+    const logged = authService.getLoggedUser();
+    
+    const [refreshing, setRefreshing] = React.useState(false);
     const [customers, setCustomers] = React.useState<Customer[]>([]);
 
     React.useLayoutEffect(() => {
@@ -22,11 +23,18 @@ export default function Customers() {
             headerRight: () => <Button title="New" onPress={() => handleEditCustomer()} />,
             headerLeft: () => <Button title="Exit" onPress={handleSignOut} />,
         });
+
     }, [navigation, handleSignOut, logged]);
 
-    firestore().collection('customers').where('userId', '==', logged?.uid).get().then(response => {
-        setCustomers(response.docs.map(doc => ({ ...doc.data(), id: doc.id } as Customer) ));
-    });
+    React.useEffect(() => fetchCustomers(), []);
+
+    function fetchCustomers(): void {
+        setRefreshing(true);
+        customerService.getCustomers().then(customers => {
+            setCustomers(customers);
+            setRefreshing(false);
+        });
+    }
 
     function handleSignOut() {
         navigation.navigate('login');
@@ -48,6 +56,8 @@ export default function Customers() {
                         <Text style={styles.text} onPress={() => handleEditCustomer(item)}>{item.name} - {item.email}</Text>
                     </View>
                 )}
+                refreshing={refreshing}
+                onRefresh={fetchCustomers}
             />
         </View>
     );

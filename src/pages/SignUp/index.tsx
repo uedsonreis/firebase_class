@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
-import auth from "@react-native-firebase/auth";
+
+import { authService } from '../../services';
 
 import styles from './styles';
 
@@ -31,7 +32,7 @@ export default function SignUp() {
         }
 
         try {
-            await auth().createUserWithEmailAndPassword(email, password);
+            await authService.createUser(email, password);
             navigation.goBack();
         } catch (error) {
             alert(error.message);
