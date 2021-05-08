@@ -14,7 +14,7 @@ export default function EditCustomer() {
     const navigation = useNavigation();
     const route = useRoute();
 
-    const { customer } = route.params as any;
+    const { customer } = route.params as { customer: Customer };
 
     const [logged, setLogged] = React.useState(auth().currentUser);
     const [name, setName] = React.useState<string>(customer ? customer.name : '');
