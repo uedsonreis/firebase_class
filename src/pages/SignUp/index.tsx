@@ -4,8 +4,7 @@ import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 
-import { authService } from '../../services';
-
+import * as actions from './actions';
 import styles from './styles';
 
 export default function SignUp() {
@@ -21,21 +20,12 @@ export default function SignUp() {
     }
 
     async function handleSave() {
-        if (!email || !email.includes('@')) {
-            alert("Email format is invalid!");
-            return;
-        }
+        const error = await actions.save(email, password, confirmPassword);
 
-        if (password !== confirmPassword) {
-            alert("Password don't match!");
-            return;
-        }
-
-        try {
-            await authService.createUser(email, password);
+        if (error) {
+            alert(error);
+        } else {
             navigation.goBack();
-        } catch (error) {
-            alert(error.message);
         }
     }
 
