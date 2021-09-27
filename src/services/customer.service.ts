@@ -1,6 +1,7 @@
 import { ReactNativeFirebase } from '@react-native-firebase/app';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { Customer } from '../pages/Customers/types';
+import { CustomerRepository } from '../repositories/customer.repository';
 
 import { AuthService } from './auth.service';
 
@@ -8,12 +9,8 @@ export class CustomerService {
 
     constructor(
         private readonly authService: AuthService,
-        private readonly firestore: ReactNativeFirebase.FirebaseModuleWithStaticsAndApp<FirebaseFirestoreTypes.Module, FirebaseFirestoreTypes.Statics>
+        private readonly repository: CustomerRepository 
     ) {}
-
-    private getRepository() {
-        return this.firestore().collection('customers');
-    }
 
     private getUserId() {
         const logged = this.authService.getLoggedUser();
@@ -22,15 +19,15 @@ export class CustomerService {
 
     public async save(customer: Customer) {
         if (customer.id) {
-            await this.getRepository().doc(customer.id).set({ ...customer });
+            await this.repository.update(customer);
         } else {
-            await this.getRepository().add({ ...customer, userId: this.getUserId() });
+            await this.repository.create({ ...customer, userId: this.getUserId() });
         }
     }
 
     public async getCustomers() {
-        const response = await this.getRepository().where('userId', '==', this.getUserId()).get();
-        return response.docs.map(doc => ({ ...doc.data(), id: doc.id } as Customer));
+        const filter = { userId: this.getUserId() };
+        return await this.repository.list(filter);
     }
 
 }
