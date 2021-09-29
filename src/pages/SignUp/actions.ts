@@ -1,4 +1,4 @@
-import { authService } from '../../services';
+import { auth } from '../../services';
 
 export async function save(email: string, password: string, confirmPassword: string) {
     if (!email || !email.includes('@')) {
@@ -9,6 +9,6 @@ export async function save(email: string, password: string, confirmPassword: str
         return "Password don't match!";
     }
 
-    await authService.createUser(email, password);
+    await auth.createUser(email, password);
     return undefined;
 }

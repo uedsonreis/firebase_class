@@ -3,14 +3,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-import { authService, customerService } from '../../../services';
+import { auth, customerService } from '../../../services';
 
-import { Customer } from '../types';
+import { Customer } from '../../../entities/customer';
 import styles from './styles';
 
 export default function EditCustomer() {
 
-    const logged = authService.getLoggedUser();
+    const logged = auth.getLoggedUser();
     const navigation = useNavigation();
     const route = useRoute();
 

@@ -1,14 +1,16 @@
 import { ReactNativeFirebase } from '@react-native-firebase/app';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-export class AuthService {
+import { Auth, User } from '../services/interfaces';
+
+export class AuthService implements Auth {
 
     constructor(
         private readonly auth: ReactNativeFirebase.FirebaseModuleWithStaticsAndApp<FirebaseAuthTypes.Module, FirebaseAuthTypes.Statics>
     ) {}
 
     public getLoggedUser() {
-        return this.auth().currentUser;
+        return this.parser(this.auth().currentUser);
     }
 
     public async signOut() {
@@ -25,8 +27,18 @@ export class AuthService {
         }
     }
 
-    public async createUser(email: string, password: string) {
-        return await this.auth().createUserWithEmailAndPassword(email, password);
+    public async createUser(email: string, password: string): Promise<User> {
+        const credential = await this.auth().createUserWithEmailAndPassword(email, password);
+        return this.parser(credential.user);
+    }
+
+    private parser(logged: FirebaseAuthTypes.User | null): User {
+        let user: User = { id: "", email: "" };
+        if (logged) {
+            user.id = logged.uid;
+            user.email = logged.email!;
+        }
+        return user;
     }
 
 }

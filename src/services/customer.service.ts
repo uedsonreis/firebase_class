@@ -1,20 +1,16 @@
-import { ReactNativeFirebase } from '@react-native-firebase/app';
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { Customer } from '../pages/Customers/types';
-import { CustomerRepository } from '../repositories/customer.repository';
-
-import { AuthService } from './auth.service';
+import { Customer } from '../entities/customer';
+import { Auth, Repository } from './interfaces';
 
 export class CustomerService {
 
     constructor(
-        private readonly authService: AuthService,
-        private readonly repository: CustomerRepository 
+        private readonly auth: Auth,
+        private readonly repository: Repository<Customer>
     ) {}
 
     private getUserId() {
-        const logged = this.authService.getLoggedUser();
-        return logged ? logged.uid : "";
+        const logged = this.auth.getLoggedUser();
+        return logged ? logged.id : "";
     }
 
     public async save(customer: Customer) {

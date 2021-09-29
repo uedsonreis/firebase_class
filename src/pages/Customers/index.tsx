@@ -3,15 +3,15 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { Button, FlatList, Text, View } from 'react-native';
 
-import { authService, customerService } from '../../services';
+import { auth, customerService } from '../../services';
 
-import { Customer } from './types';
+import { Customer } from '../../entities/customer';
 import styles from './styles';
 
 export default function Customers() {
 
     const navigation = useNavigation();
-    const logged = authService.getLoggedUser();
+    const logged = auth.getLoggedUser();
     
     const [refreshing, setRefreshing] = React.useState(false);
     const [customers, setCustomers] = React.useState<Customer[]>([]);

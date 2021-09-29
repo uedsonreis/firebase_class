@@ -4,7 +4,7 @@ import { Button, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { authService } from '../../services';
+import { auth } from '../../services';
 
 import styles from './styles';
 
@@ -12,7 +12,7 @@ export default function SignIn() {
 
     const navigation = useNavigation();
 
-    authService.signOut();
+    auth.signOut();
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -28,7 +28,7 @@ export default function SignIn() {
     }
 
     function handleLogin() {
-        authService.signIn(email, password).then(hasLogged => {
+        auth.signIn(email, password).then(hasLogged => {
             if (hasLogged) {
                 navigation.navigate('main');
             } else {
