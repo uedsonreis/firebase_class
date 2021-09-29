@@ -3,7 +3,7 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { Auth, User } from '../services/interfaces';
 
-export class AuthService implements Auth {
+export class AuthAdapter implements Auth {
 
     constructor(
         private readonly auth: ReactNativeFirebase.FirebaseModuleWithStaticsAndApp<FirebaseAuthTypes.Module, FirebaseAuthTypes.Statics>

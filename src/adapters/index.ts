@@ -1,8 +1,8 @@
 import firebaseAuth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-import { AuthService } from './auth.service';
+import { AuthAdapter } from './auth.adapter';
 import { CustomerRepository } from './customer.repository';
 
-export const authService = new AuthService(firebaseAuth);
+export const authAdapter = new AuthAdapter(firebaseAuth);
 export const customerRepository = new CustomerRepository(firestore);
