@@ -8,7 +8,12 @@
         "android": "react-native run-android",
         "ios": "react-native run-ios",
         "web": "expo start --web",
-        "eject": "expo eject"
+        "eject": "expo eject",
+        "test": "node_modules/.bin/jest",
+        "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
+    },
+    "jest": {
+        "preset": "jest-expo"
     },
     "dependencies": {
         "@react-native-community/masked-view": "0.1.10",
@@ -34,11 +39,13 @@
     },
     "devDependencies": {
         "@babel/core": "~7.9.0",
+        "@types/jest": "^27.0.2",
         "@types/react": "~16.9.35",
         "@types/react-dom": "~16.9.8",
         "@types/react-native": "~0.63.2",
         "babel-jest": "~25.2.6",
         "jest": "~25.2.6",
+        "jest-expo": "^42.1.0",
         "react-test-renderer": "~16.13.1",
         "typescript": "~4.0.0"
     }
